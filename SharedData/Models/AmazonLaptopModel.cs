@@ -14,10 +14,6 @@ public class AmazonLaptopModel
     public string? Graphics { get; set; }
     public string? GraphicsCoprocessor { get; set; }
     public string? CpuSpeed { get; set; }
-    public double? Rating { get; set; }
+    public string? Rating { get; set; }
     public string? Price { get; set; }
-
-    public AmazonLaptopModel()
-    {
-    }
 }
