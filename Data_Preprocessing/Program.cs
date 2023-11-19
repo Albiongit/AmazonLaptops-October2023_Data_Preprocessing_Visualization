@@ -54,5 +54,9 @@ public class Program
         processingService.DisplayCountedNullValues(processedDataList, "Preprocessed dataset model after null removal");
 
         Console.WriteLine($"- Number of records in preprocessed dataset: {processedDataList.Count - 1} -");
+
+        // Save new preprocessed list in a csv file
+        string preprocessedCsvFile = CsvServiceHelper.GetCsvFilePath("SharedData", "Data", "amazon_laptops_preprocessed.csv");
+        CsvServiceHelper.WriteToCsv(processedDataList, preprocessedCsvFile);
     }
 }
