@@ -22,4 +22,13 @@ public static class CsvServiceHelper
 
         return Path.GetFullPath(Path.Combine(solutionDirectory, Path.Combine(paths)));
     }
+
+    public static void WriteToCsv<T>(List<T> data, string filePath)
+    {
+        using (var writer = new StreamWriter(filePath))
+        using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+        {
+            csv.WriteRecords(data);
+        }
+    }
 }
