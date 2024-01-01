@@ -91,9 +91,9 @@ public class Program
         List<double> zScoresPrice = processedDataList.Select(x => (x.Price.GetValueOrDefault(0.0) - meanPrice) / stdDevPrice).ToList();
         
         // Set a threshold for outlier detection
-        double ramThreshold = 1.0;  // Experimentally tested
-        double hardDiskThreshold = 3.0; // Experimentally tested
-        double screenSizeThreshold = 4.0; // Experimentally tested
+        double ramThreshold = 0.8;  // Experimentally tested
+        double hardDiskThreshold = 0.4; // Experimentally tested
+        double screenSizeThreshold = 3.0; // Experimentally tested
         double priceThreshold = 1.25; // Experimentally tested
 
         // Identify outliers
