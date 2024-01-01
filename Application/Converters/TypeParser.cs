@@ -14,7 +14,7 @@ public static class TypeParser
         string numericPart = new string(value.Where(char.IsDigit).ToArray());
 
         // Check for unit (GB, MB, TB) and adjust the value accordingly
-        if (value.ToLower().Contains(TB_Name) || value.Count() == 1)
+        if (value.ToLower().Contains(TB_Name))
         {
             // Convert TB to GB (1 TB = 1000 GB)
             if (int.TryParse(numericPart, out int result))

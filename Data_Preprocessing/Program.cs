@@ -7,13 +7,13 @@ using SharedData.Models;
 public class Program
 {
     static void Main()
-    {
+    {   
         // Specify the path to dataset CSV file
         string csvFile = CsvServiceHelper.GetCsvFilePath("SharedData", "Data", "amazon_laptops.csv");
 
         // Read the CSV file and create a list of amazon laptops - take only first 10 records for testing
         List<AmazonLaptopModel> data = CsvServiceHelper.ReadCsv<AmazonLaptopModel, AmazonLaptopModelMap>(csvFile);
-        Console.WriteLine($"- Number of records in original dataset: {data.Count - 1} -");
+        Console.WriteLine($"- Number of records in original dataset: {data.Count} -");
 
         // Include processing data service to use processing methods
         DataProcessingService processingService = new DataProcessingService();
@@ -53,7 +53,7 @@ public class Program
         // Count null values for each column for dataset with processed model
         processingService.DisplayCountedNullValues(processedDataList, "Preprocessed dataset model after null removal");
 
-        Console.WriteLine($"- Number of records in preprocessed dataset: {processedDataList.Count - 1} -");
+        Console.WriteLine($"- Number of records in preprocessed dataset: {processedDataList.Count} -");
 
         // Save new preprocessed list in a csv file
         string preprocessedCsvFile = CsvServiceHelper.GetCsvFilePath("SharedData", "Data", "amazon_laptops_preprocessed.csv");
