@@ -111,4 +111,37 @@ public class DataProcessingService
             return list;
         }
     }
+
+    public double CalculateStandardDeviation(IEnumerable<double> listOfValues)
+    {
+        double average = listOfValues.Average();
+
+        double sumOfSquares = listOfValues.Sum(val => Math.Pow(val - average, 2));
+
+        return Math.Sqrt(sumOfSquares / listOfValues.Count());
+    }
+
+    public double CalculateStandardDeviation(IEnumerable<int> listOfValues)
+    {
+        double average = listOfValues.Average();
+
+        double sumOfSquares = listOfValues.Sum(val => Math.Pow(val - average, 2));
+
+        return Math.Sqrt(sumOfSquares / listOfValues.Count());
+    }
+
+    public List<int> FindOutliersViaZScore(List<double> zScores, double threshold)
+    {
+        List<int> outlierIndices = new List<int>();
+
+        for (int i = 0; i < zScores.Count; i++)
+        {
+            if (Math.Abs(zScores[i]) > threshold)
+            {
+                outlierIndices.Add(i);
+            }
+        }
+
+        return outlierIndices;
+    }
 }

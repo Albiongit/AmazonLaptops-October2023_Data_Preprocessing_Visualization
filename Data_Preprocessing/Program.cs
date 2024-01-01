@@ -25,7 +25,7 @@ public class Program
         processingService.DisplayCountedNullValues(data, "Original dataset model");
 
         // Remove unnecessary columns and store the data in a processed model class
-        var processedDataList = processingService.GetProcessedData(data);
+        List<AmazonLaptopProcessedModel> processedDataList = processingService.GetProcessedData(data);
         processingService.DisplayInitialData(processedDataList, "Preprocessed dataset model");
 
         // Check for duplicates, if any then remove
@@ -53,10 +53,81 @@ public class Program
         // Count null values for each column for dataset with processed model
         processingService.DisplayCountedNullValues(processedDataList, "Preprocessed dataset model after null removal");
 
-        Console.WriteLine($"- Number of records in preprocessed dataset: {processedDataList.Count} -");
+        Console.WriteLine($"- Number of records in preprocessed dataset: {processedDataList.Count} -\n");
 
-        // Save new preprocessed list in a csv file
-        string preprocessedCsvFile = CsvServiceHelper.GetCsvFilePath("SharedData", "Data", "amazon_laptops_preprocessed.csv");
-        CsvServiceHelper.WriteToCsv(processedDataList, preprocessedCsvFile);
+        // Save new preprocessed list in a csv file -- Already saved -- will be commented until the end of project
+        //string preprocessedCsvFile = CsvServiceHelper.GetCsvFilePath("SharedData", "Data", "amazon_laptops_preprocessed.csv");
+        //CsvServiceHelper.WriteToCsv(processedDataList, preprocessedCsvFile);
+
+        // Define outliers and anomalies via z-score method and remove them -- Second phase of the project
+
+        Console.WriteLine("- Define outliers and anomalies by calculating mean, standard deviation and z-score for each column in preprocessed dataset -\n");
+
+        // Calculate means and standard deviations for RAM, Hard Disk, Screen Size and Price
+        double meanRam = processedDataList.Average(x => x.Ram.GetValueOrDefault(0.0));
+        double stdDevRam = processingService.CalculateStandardDeviation(processedDataList.Select(x => x.Ram.GetValueOrDefault(0.0)));
+        Console.WriteLine("RAM mean: {0}", meanRam);
+        Console.WriteLine("RAM standard deviation: {0}\n", stdDevRam);
+
+        double meanHardDisk = processedDataList.Average(x => x.HardDisk.GetValueOrDefault(0.0));
+        double stdDevHardDisk = processingService.CalculateStandardDeviation(processedDataList.Select(x => x.HardDisk.GetValueOrDefault(0.0)));
+        Console.WriteLine("Hard Disk mean: {0}", meanHardDisk);
+        Console.WriteLine("Hard Disk standard deviation: {0}\n", stdDevHardDisk);
+
+        double meanScreenSize = processedDataList.Average(x => x.ScreenSize.GetValueOrDefault(0.0));
+        double stdDevScreenSize = processingService.CalculateStandardDeviation(processedDataList.Select(x => x.ScreenSize.GetValueOrDefault(0.0)));
+        Console.WriteLine("Screen Size mean: {0}", meanScreenSize);
+        Console.WriteLine("Screen Size standard deviation: {0}\n", stdDevScreenSize);
+
+        double meanPrice = processedDataList.Average(x => x.Price.GetValueOrDefault(0.0));
+        double stdDevPrice = processingService.CalculateStandardDeviation(processedDataList.Select(x => x.Price.GetValueOrDefault(0.0)));
+        Console.WriteLine("Price mean: {0}", meanPrice);
+        Console.WriteLine("Price standard deviation: {0}\n", stdDevPrice);
+
+        // Calculate z-scores for RAM, Hard Disk, Screen Size and Price
+        List<double> zScoresRAM = processedDataList.Select(x => (x.Ram.GetValueOrDefault(0.0) - meanRam) / stdDevRam).ToList();
+        List<double> zScoresHardDisk = processedDataList.Select(x => (x.HardDisk.GetValueOrDefault(0.0) - meanHardDisk) / stdDevHardDisk).ToList();
+        List<double> zScoresScreenSize = processedDataList.Select(x => (x.ScreenSize.GetValueOrDefault(0.0) - meanScreenSize) / stdDevScreenSize).ToList();
+        List<double> zScoresPrice = processedDataList.Select(x => (x.Price.GetValueOrDefault(0.0) - meanPrice) / stdDevPrice).ToList();
+        
+        // Set a threshold for outlier detection
+        double ramThreshold = 1.0;  // Experimentally tested
+        double hardDiskThreshold = 3.0; // Experimentally tested
+        double screenSizeThreshold = 4.0; // Experimentally tested
+        double priceThreshold = 1.25; // Experimentally tested
+
+        // Identify outliers
+        List<int> outlierIndicesRAM = processingService.FindOutliersViaZScore(zScoresRAM, ramThreshold);
+        List<int> outlierIndicesHardDisk = processingService.FindOutliersViaZScore(zScoresHardDisk, hardDiskThreshold);
+        List<int> outlierIndicesScreenSize = processingService.FindOutliersViaZScore(zScoresScreenSize, screenSizeThreshold);
+        List<int> outlierIndicesPrice = processingService.FindOutliersViaZScore(zScoresPrice, priceThreshold);
+
+        // Show outlier indexes
+        Console.WriteLine("Outliers in RAM(indexes): {0}.", (outlierIndicesRAM.Any() ? string.Join(", ", outlierIndicesRAM) : "Empty"));
+
+        Console.WriteLine("Outliers in HardDisk(indexes): {0}.", (outlierIndicesHardDisk.Any() ? string.Join(", ", outlierIndicesHardDisk) : "Empty"));
+
+        Console.WriteLine("Outliers in ScreenSize(indexes): {0}.", (outlierIndicesScreenSize.Any() ? string.Join(", ", outlierIndicesScreenSize) : "Empty"));
+
+        Console.WriteLine("Outliers in Price(indexes): {0}.\n", (outlierIndicesPrice.Any() ? string.Join(", ", outlierIndicesPrice) : "Empty"));
+
+        // Union all outlier indices and remove them from preprocessed dataset
+        List<int> allOutlierIndices = outlierIndicesRAM
+            .Union(outlierIndicesHardDisk)
+            .Union(outlierIndicesScreenSize)
+            .Union(outlierIndicesPrice)
+            .ToList();
+
+        // Remove outliers and anomalies
+        foreach (int index in allOutlierIndices.OrderByDescending(i => i))
+        {
+            processedDataList.RemoveAt(index);
+        }
+
+        Console.WriteLine($"- Number of records in preprocessed dataset after outliers and anomalies removal: {processedDataList.Count} -\n");
+
+        // Save new processed list after outliers and anomalies removal in a csv file 
+        string processedCsvFile = CsvServiceHelper.GetCsvFilePath("SharedData", "Data", "amazon_laptops_processed.csv");
+        CsvServiceHelper.WriteToCsv(processedDataList, processedCsvFile);
     }
 }

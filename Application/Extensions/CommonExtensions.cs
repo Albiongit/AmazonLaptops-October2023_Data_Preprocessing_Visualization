@@ -5,7 +5,7 @@ namespace Application.Extensions;
 
 public static class CommonExtensions
 {
-    public static (int? mostRepeatedRamValue, int? mostRepeatedHardDiskValue)? FindMostRepeatedValueForRamAndHardDisk(this IQueryable<AmazonLaptopProcessedModel> query, Expression<Func<AmazonLaptopProcessedModel, int?>> filterForRam, Expression<Func<AmazonLaptopProcessedModel, int?>> filterForHardDisk)
+    public static (double? mostRepeatedRamValue, double? mostRepeatedHardDiskValue)? FindMostRepeatedValueForRamAndHardDisk(this IQueryable<AmazonLaptopProcessedModel> query, Expression<Func<AmazonLaptopProcessedModel, double?>> filterForRam, Expression<Func<AmazonLaptopProcessedModel, double?>> filterForHardDisk)
     {
         var mostRepeatedRamValue = query
             .GroupBy(filterForRam)
