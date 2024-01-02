@@ -3,6 +3,13 @@ using Application.Helpers;
 using Application.Services;
 using SharedData.Mappers;
 using SharedData.Models;
+using CNTK;
+using EasyCNTK;
+using EasyCNTK.ActivationFunctions;
+using EasyCNTK.Layers;
+using EasyCNTK.Learning;
+using EasyCNTK.Learning.Optimizers;
+using EasyCNTK.LossFunctions;
 
 public class Program
 {
@@ -127,8 +134,8 @@ public class Program
         Console.WriteLine($"- Number of records in preprocessed dataset after outliers and anomalies removal: {processedDataList.Count} -\n");
 
         // Save new processed list after outliers and anomalies removal in a csv file 
-        string processedCsvFile = CsvServiceHelper.GetCsvFilePath("SharedData", "Data", "amazon_laptops_processed.csv");
-        CsvServiceHelper.WriteToCsv(processedDataList, processedCsvFile);
+        //string processedCsvFile = CsvServiceHelper.GetCsvFilePath("SharedData", "Data", "amazon_laptops_processed.csv");
+        //CsvServiceHelper.WriteToCsv(processedDataList, processedCsvFile);
 
         // Extract numerical attributes for correlation matrix
         List<double> ramValues = processedDataList.Select(x => x.Ram.GetValueOrDefault(0.0)).ToList();
@@ -138,57 +145,52 @@ public class Program
 
         // Calculate the correlation matrix
         double[,] correlationMatrix = processingService.CalculateCorrelationMatrix(ramValues, hardDiskValues, screenSizeValues, priceValues);
+        
+        // Call service for displaying correlation matrix and general statistics of numerical columns
+        CommonService commonService = new CommonService();
 
         // Display the correlation matrix
-        Console.WriteLine("Correlation Matrix:");
-        Console.WriteLine("      Ram       HDisk   SSize   Price");
-        for (int i = 0; i < 4; i++)
-        {
-            Console.Write(i == 0 ? "Ram   " : (i == 1 ? "HDisk " : (i == 2 ? "SSize " : "Price ")));
-            for (int j = 0; j < 4; j++)
-            {
-                Console.Write(correlationMatrix[i, j].ToString("F4") + "\t");
-            }
-            Console.WriteLine("\n");
-        }
-
-        CommonService commonService = new CommonService();
+        commonService.DisplayCorrelationMatrix(correlationMatrix);
 
         // General statistics for all numerical columns
         Console.WriteLine("- Ram general statistics -");
         double finalRamMeanValue = CommonHelper.CalculateMean(ramValues);
+        double finalStdDevRamValue = processingService.CalculateStandardDeviation(ramValues);
         double finalRamMedianValue = CommonHelper.CalculateMedian(ramValues);
         double finalRamMinValue = CommonHelper.CalculateMin(ramValues);
         double finalRamMaxValue = CommonHelper.CalculateMax(ramValues);
         List<double> finalRamModeValue = CommonHelper.CalculateMode(ramValues);
 
-        commonService.DisplayGeneralStatistics(finalRamMeanValue, finalRamModeValue, finalRamMedianValue, finalRamMinValue, finalRamMaxValue);
+        commonService.DisplayGeneralStatistics(finalRamMeanValue, finalStdDevRamValue, finalRamModeValue, finalRamMedianValue, finalRamMinValue, finalRamMaxValue);
 
         Console.WriteLine("- Hard Disk general statistics -");
         double finalHardDiskMeanValue = CommonHelper.CalculateMean(hardDiskValues);
+        double finalStdDevHardDiskValue = processingService.CalculateStandardDeviation(hardDiskValues);
         double finalHardDiskMedianValue = CommonHelper.CalculateMedian(hardDiskValues);
         double finalHardDiskMinValue = CommonHelper.CalculateMin(hardDiskValues);
         double finalHardDiskMaxValue = CommonHelper.CalculateMax(hardDiskValues);
         List<double> finalHardDiskModeValue = CommonHelper.CalculateMode(hardDiskValues);
 
-        commonService.DisplayGeneralStatistics(finalHardDiskMeanValue, finalHardDiskModeValue, finalHardDiskMedianValue, finalHardDiskMinValue, finalHardDiskMaxValue);
+        commonService.DisplayGeneralStatistics(finalHardDiskMeanValue, finalStdDevHardDiskValue, finalHardDiskModeValue, finalHardDiskMedianValue, finalHardDiskMinValue, finalHardDiskMaxValue);
 
         Console.WriteLine("- Screen Size general statistics -");
         double finalScreenSizeMeanValue = CommonHelper.CalculateMean(screenSizeValues);
+        double finalStdDevScreenSizeValue = processingService.CalculateStandardDeviation(screenSizeValues);
         double finalScreenSizeMedianValue = CommonHelper.CalculateMedian(screenSizeValues);
         double finalScreenSizeMinValue = CommonHelper.CalculateMin(screenSizeValues);
         double finalScreenSizeMaxValue = CommonHelper.CalculateMax(screenSizeValues);
         List<double> finalScreenSizeModeValue = CommonHelper.CalculateMode(screenSizeValues);
 
-        commonService.DisplayGeneralStatistics(finalScreenSizeMeanValue, finalScreenSizeModeValue, finalScreenSizeMedianValue, finalScreenSizeMinValue, finalScreenSizeMaxValue);
+        commonService.DisplayGeneralStatistics(finalScreenSizeMeanValue, finalStdDevScreenSizeValue, finalScreenSizeModeValue, finalScreenSizeMedianValue, finalScreenSizeMinValue, finalScreenSizeMaxValue);
 
         Console.WriteLine("- Price general statistics -");
         double finalPriceMeanValue = CommonHelper.CalculateMean(priceValues);
+        double finalStdDevPriceValue = processingService.CalculateStandardDeviation(priceValues);
         double finalPriceMedianValue = CommonHelper.CalculateMedian(priceValues);
         double finalPriceMinValue = CommonHelper.CalculateMin(priceValues);
         double finalPriceMaxValue = CommonHelper.CalculateMax(priceValues);
         List<double> finalPriceModeValue = CommonHelper.CalculateMode(priceValues);
 
-        commonService.DisplayGeneralStatistics(finalPriceMeanValue, finalPriceModeValue, finalPriceMedianValue, finalPriceMinValue, finalPriceMaxValue);
+        commonService.DisplayGeneralStatistics(finalPriceMeanValue, finalStdDevPriceValue, finalPriceModeValue, finalPriceMedianValue, finalPriceMinValue, finalPriceMaxValue);
     }
 }
