@@ -121,15 +121,6 @@ public class DataProcessingService
         return Math.Sqrt(sumOfSquares / listOfValues.Count());
     }
 
-    public double CalculateStandardDeviation(IEnumerable<int> listOfValues)
-    {
-        double average = listOfValues.Average();
-
-        double sumOfSquares = listOfValues.Sum(val => Math.Pow(val - average, 2));
-
-        return Math.Sqrt(sumOfSquares / listOfValues.Count());
-    }
-
     public List<int> FindOutliersViaZScore(List<double> zScores, double threshold)
     {
         List<int> outlierIndices = new List<int>();
@@ -143,5 +134,52 @@ public class DataProcessingService
         }
 
         return outlierIndices;
+    }
+
+    public double[,] CalculateCorrelationMatrix(List<double> values1, List<double> values2, List<double> values3, List<double> values4)
+    {
+        List<List<double>> listOfColumnValues = new List<List<double>>()
+        { 
+            values1, 
+            values2, 
+            values3, 
+            values4
+        };
+
+        int numOfColumn = listOfColumnValues.Count;
+
+        double[,] correlationMatrix = new double[numOfColumn, numOfColumn];
+
+        // Populate the correlation matrix
+        for (int i = 0; i < numOfColumn; i++)
+        {
+            for (int j = 0; j < numOfColumn; j++)
+            {
+                double correlation = CalculateCorrelation(listOfColumnValues[i], listOfColumnValues[j]);
+                correlationMatrix[i, j] = correlation;
+            }
+        }
+
+        return correlationMatrix;
+    }
+
+    private double CalculateCorrelation(List<double> x, List<double> y)
+    {
+        double stdDevOfX = CalculateStandardDeviation(x);
+        double stdDevOfY = CalculateStandardDeviation(y);
+
+        double covarianceOfXY = CalculateCovariance(x, y);
+
+        return covarianceOfXY / (stdDevOfX * stdDevOfY);
+    }
+
+    private static double CalculateCovariance(List<double> x, List<double> y)
+    {
+        double meanX = x.Average();
+        double meanY = y.Average();
+
+        double covariance = x.Zip(y, (xi, yi) => (xi - meanX) * (yi - meanY)).Sum() / x.Count;
+
+        return covariance;
     }
 }

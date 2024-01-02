@@ -129,5 +129,27 @@ public class Program
         // Save new processed list after outliers and anomalies removal in a csv file 
         string processedCsvFile = CsvServiceHelper.GetCsvFilePath("SharedData", "Data", "amazon_laptops_processed.csv");
         CsvServiceHelper.WriteToCsv(processedDataList, processedCsvFile);
+
+        // Extract numerical attributes for correlation matrix
+        List<double> ramValues = processedDataList.Select(x => x.Ram.GetValueOrDefault(0.0)).ToList();
+        List<double> hardDiskValues = processedDataList.Select(x => x.HardDisk.GetValueOrDefault(0.0)).ToList();
+        List<double> screenSizeValues = processedDataList.Select(x => x.ScreenSize.GetValueOrDefault(0.0)).ToList();
+        List<double> priceValues = processedDataList.Select(x => x.Price.GetValueOrDefault(0.0)).ToList();
+
+        // Calculate the correlation matrix
+        double[,] correlationMatrix = processingService.CalculateCorrelationMatrix(ramValues, hardDiskValues, screenSizeValues, priceValues);
+
+        // Display the correlation matrix
+        Console.WriteLine("Correlation Matrix:");
+        Console.WriteLine("      Ram       HDisk   SSize   Price");
+        for (int i = 0; i < 4; i++)
+        {
+            Console.Write(i == 0 ? "Ram   " : (i == 1 ? "HDisk " : (i == 2 ? "SSize " : "Price ")));
+            for (int j = 0; j < 4; j++)
+            {
+                Console.Write(correlationMatrix[i, j].ToString("F4") + "\t");
+            }
+            Console.WriteLine();
+        }
     }
 }
