@@ -149,7 +149,46 @@ public class Program
             {
                 Console.Write(correlationMatrix[i, j].ToString("F4") + "\t");
             }
-            Console.WriteLine();
+            Console.WriteLine("\n");
         }
+
+        CommonService commonService = new CommonService();
+
+        // General statistics for all numerical columns
+        Console.WriteLine("- Ram general statistics -");
+        double finalRamMeanValue = CommonHelper.CalculateMean(ramValues);
+        double finalRamMedianValue = CommonHelper.CalculateMedian(ramValues);
+        double finalRamMinValue = CommonHelper.CalculateMin(ramValues);
+        double finalRamMaxValue = CommonHelper.CalculateMax(ramValues);
+        List<double> finalRamModeValue = CommonHelper.CalculateMode(ramValues);
+
+        commonService.DisplayGeneralStatistics(finalRamMeanValue, finalRamModeValue, finalRamMedianValue, finalRamMinValue, finalRamMaxValue);
+
+        Console.WriteLine("- Hard Disk general statistics -");
+        double finalHardDiskMeanValue = CommonHelper.CalculateMean(hardDiskValues);
+        double finalHardDiskMedianValue = CommonHelper.CalculateMedian(hardDiskValues);
+        double finalHardDiskMinValue = CommonHelper.CalculateMin(hardDiskValues);
+        double finalHardDiskMaxValue = CommonHelper.CalculateMax(hardDiskValues);
+        List<double> finalHardDiskModeValue = CommonHelper.CalculateMode(hardDiskValues);
+
+        commonService.DisplayGeneralStatistics(finalHardDiskMeanValue, finalHardDiskModeValue, finalHardDiskMedianValue, finalHardDiskMinValue, finalHardDiskMaxValue);
+
+        Console.WriteLine("- Screen Size general statistics -");
+        double finalScreenSizeMeanValue = CommonHelper.CalculateMean(screenSizeValues);
+        double finalScreenSizeMedianValue = CommonHelper.CalculateMedian(screenSizeValues);
+        double finalScreenSizeMinValue = CommonHelper.CalculateMin(screenSizeValues);
+        double finalScreenSizeMaxValue = CommonHelper.CalculateMax(screenSizeValues);
+        List<double> finalScreenSizeModeValue = CommonHelper.CalculateMode(screenSizeValues);
+
+        commonService.DisplayGeneralStatistics(finalScreenSizeMeanValue, finalScreenSizeModeValue, finalScreenSizeMedianValue, finalScreenSizeMinValue, finalScreenSizeMaxValue);
+
+        Console.WriteLine("- Price general statistics -");
+        double finalPriceMeanValue = CommonHelper.CalculateMean(priceValues);
+        double finalPriceMedianValue = CommonHelper.CalculateMedian(priceValues);
+        double finalPriceMinValue = CommonHelper.CalculateMin(priceValues);
+        double finalPriceMaxValue = CommonHelper.CalculateMax(priceValues);
+        List<double> finalPriceModeValue = CommonHelper.CalculateMode(priceValues);
+
+        commonService.DisplayGeneralStatistics(finalPriceMeanValue, finalPriceModeValue, finalPriceMedianValue, finalPriceMinValue, finalPriceMaxValue);
     }
 }
