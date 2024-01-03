@@ -60,7 +60,7 @@ After addressing outliers, the script proceeds with a comprehensive analysis of 
 * A correlation matrix is generated to reveal the interplay between RAM, Hard Disk, Screen Size, and Price. This matrix aids in understanding potential dependencies between attributes.
 
 ## General Statistics:
-*For each numerical column, detailed statistics are presented, including mean, standard deviation, median, minimum, maximum, and mode. These statistics offer a holistic view of the distribution and central tendencies of the dataset.
+* For each numerical column, detailed statistics are presented, including mean, standard deviation, median, minimum, maximum, and mode. These statistics offer a holistic view of the distribution and central tendencies of the dataset.
 
 
 # Conclusion
