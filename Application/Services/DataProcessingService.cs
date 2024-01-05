@@ -79,6 +79,21 @@ public class DataProcessingService
         return processedDataList;
     }
 
+    public List<AmazonLaptopProcessedModel> GetProcessedData(List<AmazonLaptopProcessedModel> data)
+    {
+        List<AmazonLaptopProcessedModel> processedDataList = data
+            .Select(x => new AmazonLaptopProcessedModel
+            {
+                Brand = x.Brand,
+                Ram = x.Ram,
+                ScreenSize = x.ScreenSize,
+                HardDisk = x.HardDisk,
+                Price = x.Price
+            }).ToList();
+
+        return processedDataList;
+    }
+
     public void FillNullValues(List<AmazonLaptopProcessedModel> data, string propertyName, object valueToFill)
     {
         foreach (var item in data)
