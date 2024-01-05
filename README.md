@@ -31,5 +31,37 @@ The project is implemented in C# and utilizes various helper classes and extensi
 * Null value counts are displayed for each column in original dataset
 * Final null value counts are displayed for each column in preprocessed dataset.
 
+# Outlier Detection and Removal
+
+In this phase, robust outlier detection and removal techniques are applied to ensure the reliability of the dataset. Outliers and anomalies in key attributes are identified and addressed using statistical measures.
+
+## Calculation of Mean and Standard Deviation:
+* Mean and standard deviation are computed for each numerical column in the preprocessed dataset, including RAM, Hard Disk, Screen Size, and Price. These statistical measures serve as essential references, providing insights into the average value and variability of the data. Crucially, they form the basis for calculating Z-scores, aiding in the identification of outliers and anomalies within the dataset.
+
+## Z-Score Calculation:
+* Z-scores, indicative of how many standard deviations a data point is from the mean, are calculated for each numerical attribute. This allows for a standardized comparison across different attributes.
+
+## Thresholds for Outlier Detection:
+* Experimentally determined thresholds are set for each attribute (RAM, Hard Disk, Screen Size, and Price). These thresholds act as benchmarks for identifying potential outliers
+
+## Identification of Outliers:
+* Outliers are pinpointed by assessing the z-scores against the defined thresholds. This step provides insights into data points that deviate significantly from the expected distribution.
+
+## Removal of Outliers:
+* Outliers and anomalies are systematically removed from the dataset. The process involves updating the dataset by excluding records identified as outliers in one or more attributes.
+
+## Updated Dataset Statistics:
+* Post-outlier removal, the script reports the number of records in the preprocessed dataset. This step offers a glimpse into the impact of outlier removal on the overall dataset size.
+
+# Correlation Matrix and General Statistics
+
+After addressing outliers, the script proceeds with a comprehensive analysis of relationships and statistical summaries for key numerical columns.
+## Correlation Matrix:
+* A correlation matrix is generated to reveal the interplay between RAM, Hard Disk, Screen Size, and Price. This matrix aids in understanding potential dependencies between attributes.
+
+## General Statistics:
+* For each numerical column, detailed statistics are presented, including mean, standard deviation, median, minimum, maximum, and mode. These statistics offer a holistic view of the distribution and central tendencies of the dataset.
+
+
 # Conclusion
-The pre-processing steps outlined in this project aim to ensure data quality and prepare the dataset for subsequent analysis. The implemented strategies for handling null values and data transformation contribute to a cleaner and more reliable dataset for further exploration and visualization.
+The comprehensive pre-processing steps undertaken in this project have been instrumental in fortifying the dataset for rigorous analysis. Through adept strategies for handling null values and meticulous data transformations, the dataset has undergone a transformation, emerging as a cleaner and more reliable foundation for in-depth exploration and visualization. These efforts not only contribute to enhanced data quality but also set the stage for robust analyses and insights in subsequent phases of the project. The project's commitment to addressing data quality issues ensures that the dataset is well-prepared to unveil meaningful patterns and trends, laying a solid groundwork for subsequent analytical endeavors.
