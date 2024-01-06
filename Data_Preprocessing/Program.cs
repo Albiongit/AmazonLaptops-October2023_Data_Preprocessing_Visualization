@@ -127,8 +127,8 @@ public class Program
         Console.WriteLine($"- Number of records in preprocessed dataset after outliers and anomalies removal: {processedDataList.Count} -\n");
 
         // Save new processed list after outliers and anomalies removal in a csv file 
-        string processedCsvFile = CsvServiceHelper.GetCsvFilePath("SharedData", "Data", "amazon_laptops_processed.csv");
-        CsvServiceHelper.WriteToCsv(processedDataList, processedCsvFile);
+        //string processedCsvFile = CsvServiceHelper.GetCsvFilePath("SharedData", "Data", "amazon_laptops_processed.csv");
+        //CsvServiceHelper.WriteToCsv(processedDataList, processedCsvFile);
 
         // Extract numerical attributes for correlation matrix
         List<double> ramValues = processedDataList.Select(x => x.Ram.GetValueOrDefault(0.0)).ToList();
