@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Drawing;
 using System.Linq;
-using System.Windows;
 using Application.Helpers;
 using Application.Mappers;
 using Application.Services;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using LiveCharts;
 using ScottPlot;
 using SharedData.Models;
 
@@ -16,6 +19,8 @@ namespace Data_Visualization
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ChartValues<ObservablePoint> LaptopData { get; set; }
+
         [Obsolete]
         public MainWindow()
         {
@@ -74,6 +79,17 @@ namespace Data_Visualization
 
             // Set the WpfPlot control as the content of the first tab
             tabItemTab1.Content = wpfPlotRAMDistribution;
+
+            // Create a scatter plot for screen size vs. price - TAB 2
+            LaptopData = new ChartValues<ObservablePoint>();
+
+            // Populate the ScatterSeries with screen size and price data
+            foreach (var laptop in processedDataList)
+            {
+                LaptopData.Add(new ObservablePoint(laptop.ScreenSize.GetValueOrDefault(0.0), laptop.Price.GetValueOrDefault(0.0)));
+            }
+
+            DataContext = this;
         }
     }
 }

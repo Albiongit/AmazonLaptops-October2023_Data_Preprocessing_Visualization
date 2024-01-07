@@ -4,21 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="Data Visualization" Height="450" Width="800">
     <Grid>
         <TabControl>
-            <!-- Tab 1 -->
+            <!-- Tab 1 - Static Pie using ScottPlot -->
             <TabItem Header="Ram Pie" x:Name="tabItemTab1">
                 <Grid>
-                    <wpf:WpfPlot Name="wpfPlotTab1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <wpf:Grid.ColumnDefinitions>
+                        <wpf:ColumnDefinition Width="112*"/>
+                        <wpf:ColumnDefinition Width="17*"/>
+                        <wpf:ColumnDefinition Width="0*"/>
+                        <wpf:ColumnDefinition Width="665*"/>
+                    </wpf:Grid.ColumnDefinitions>
+                    <wpf:WpfPlot Name="wpfPlotTab1" wpf:Grid.ColumnSpan="4"/>
                 </Grid>
             </TabItem>
 
-            <!-- Tab 2 -->
-            <TabItem Header="Tab 2" x:Name="tabItemTab2">
+            <!-- Tab 2 - LiveCharts Screen Size vs. Price -->
+            <TabItem Header="Screen Size vs. Price - Scatter chart" x:Name="tabItemTab2">
                 <Grid>
-                    <wpf:WpfPlot Name="wpfPlotTab2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <lvc:CartesianChart Name="liveChartTab2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <lvc:CartesianChart.Series>
+                            <lvc:ScatterSeries Title="Laptop(Inches, USD)" Values="{Binding LaptopData}" PointGeometry="{x:Static lvc:DefaultGeometries.Circle}"  MaxPointShapeDiameter="10"/>
+                        </lvc:CartesianChart.Series>
+                    </lvc:CartesianChart>
                 </Grid>
             </TabItem>
         </TabControl>
