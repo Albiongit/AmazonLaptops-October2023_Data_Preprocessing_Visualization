@@ -20,5 +20,5 @@ fig.add_trace(fig_3d_date_age_sex.data[0], row=1, col=1)
 # Update layout
 fig.update_layout(height=800, showlegend=True)
 
-# Show the combined plot
+# Show the plot
 fig.show()
