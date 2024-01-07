@@ -62,6 +62,14 @@ After addressing outliers, the script proceeds with a comprehensive analysis of 
 ## General Statistics:
 * For each numerical column, detailed statistics are presented, including mean, standard deviation, median, minimum, maximum, and mode. These statistics offer a holistic view of the distribution and central tendencies of the dataset.
 
+# Data Visualization
+
+In this phase we display some data visualization starting from general bar charts for numerical column showing their frequency, static visualization by displaying Ram distribution via Pie chart and an interactive visualization by displaying laptops based on their Screen size value and their Price.
+
+## Bar chart for Ram column
+![RamFreq](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/7e2f1cb4-8964-4cd6-a21e-9b1471b902b3)
+
+
 
 # Conclusion
 The comprehensive pre-processing steps undertaken in this project have been instrumental in fortifying the dataset for rigorous analysis. Through adept strategies for handling null values and meticulous data transformations, the dataset has undergone a transformation, emerging as a cleaner and more reliable foundation for in-depth exploration and visualization. These efforts not only contribute to enhanced data quality but also set the stage for robust analyses and insights in subsequent phases of the project. The project's commitment to addressing data quality issues ensures that the dataset is well-prepared to unveil meaningful patterns and trends, laying a solid groundwork for subsequent analytical endeavors.
