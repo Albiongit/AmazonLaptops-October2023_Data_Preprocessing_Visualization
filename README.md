@@ -37,6 +37,8 @@ In this phase, robust outlier detection and removal techniques are applied to en
 
 ## Calculation of Mean and Standard Deviation:
 * Mean and standard deviation are computed for each numerical column in the preprocessed dataset, including RAM, Hard Disk, Screen Size, and Price. These statistical measures serve as essential references, providing insights into the average value and variability of the data. Crucially, they form the basis for calculating Z-scores, aiding in the identification of outliers and anomalies within the dataset.
+![defineOUT](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/3a137712-a89b-45d7-838c-f230310a52ad)
+
 
 ## Z-Score Calculation:
 * Z-scores, indicative of how many standard deviations a data point is from the mean, are calculated for each numerical attribute. This allows for a standardized comparison across different attributes.
@@ -49,6 +51,8 @@ In this phase, robust outlier detection and removal techniques are applied to en
 
 ## Removal of Outliers:
 * Outliers and anomalies are systematically removed from the dataset. The process involves updating the dataset by excluding records identified as outliers in one or more attributes.
+![outIndexes](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/fda9b909-70e8-4b7d-96bf-b950be232a88)
+
 
 ## Updated Dataset Statistics:
 * Post-outlier removal, the script reports the number of records in the preprocessed dataset. This step offers a glimpse into the impact of outlier removal on the overall dataset size.
@@ -58,9 +62,13 @@ In this phase, robust outlier detection and removal techniques are applied to en
 After addressing outliers, the script proceeds with a comprehensive analysis of relationships and statistical summaries for key numerical columns.
 ## Correlation Matrix:
 * A correlation matrix is generated to reveal the interplay between RAM, Hard Disk, Screen Size, and Price. This matrix aids in understanding potential dependencies between attributes.
+![corrMatrix](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/db681787-3966-4583-9dbc-c2001e3c016b)
+
 
 ## General Statistics:
 * For each numerical column, detailed statistics are presented, including mean, standard deviation, median, minimum, maximum, and mode. These statistics offer a holistic view of the distribution and central tendencies of the dataset.
+![ststs](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/9904e0e3-318e-45d2-a47b-87a0bd90fc8c)
+
 
 # Data Visualization
 
@@ -81,8 +89,11 @@ In this phase we display some data visualization starting from general bar chart
 ## Static visualization - Pie chart for Ram distribution
 ![ramPie](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/086e5eda-85d0-4e6e-b1e7-8422dd536117)
 
-## Interactive visualization - Scatter chart for Laptops based on their screen size and price distribution
+## Interactive visualization - Scatter chart for Laptops based on their screen size(X Label) and price(Y Label) distribution
 ![screenVsPriceChart](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/6244058b-b6df-4df4-9b99-098ebe549eb6)
+
+## Multidimensional visualization - 3D scatter chart for Laptops based on their Price(X Label), Ram(Y Label) and Hard Disk(Z Label) distribution
+![d90c60da-1c6b-47b5-b091-ec51d72c5287](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/9f877164-0929-4473-98e3-f83326d0e806)
 
 
 # Conclusion
