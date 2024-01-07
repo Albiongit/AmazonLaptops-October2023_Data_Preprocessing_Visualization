@@ -7,7 +7,6 @@ using Application.Helpers;
 using Application.Mappers;
 using Application.Services;
 using LiveCharts.Defaults;
-using LiveCharts.Wpf;
 using LiveCharts;
 using ScottPlot;
 using SharedData.Models;
@@ -40,9 +39,115 @@ namespace Data_Visualization
 
             // Extract features for visualization
             double[] ramData = processedDataList.Select(l => l.Ram.GetValueOrDefault(0.0)).ToArray();
+            double[] hardDiskData = processedDataList.Select(l => l.HardDisk.GetValueOrDefault(0.0)).ToArray();
+            double[] screenSizeData = processedDataList.Select(l => l.ScreenSize.GetValueOrDefault(0.0)).ToArray();
             double[] priceData = processedDataList.Select(l => l.Price.GetValueOrDefault(0.0)).ToArray();
 
-            // Create a bar plot for the distribution of laptops based on RAM - TAB 1
+            // Tab 1 - ScottPlot Bar Chart - RAM frequency
+            var wpfPlotRamBarChart = new WpfPlot();
+
+            // Count the frequency of each RAM value
+            var ramFrequency = ramData.GroupBy(x => x)
+                .Select(g => new { Ram = g.Key, Frequency = g.Count() })
+                .OrderBy(x => x.Ram)
+                .ToList();
+
+            // Create a bar plot
+            foreach(var value in ramFrequency)
+            {
+                wpfPlotRamBarChart.Plot.AddBar(value.Ram, value.Frequency);
+            }
+
+            // Customize plot labels and title
+            wpfPlotRamBarChart.Plot.Title("RAM Frequency");
+            wpfPlotRamBarChart.Plot.XLabel("RAM(GB)");
+            wpfPlotRamBarChart.Plot.YLabel("Frequency");
+
+            // Render the plot
+            wpfPlotRamBarChart.Render();
+
+            // Set the WpfPlot control as the content of the third tab
+            tabItemTab1.Content = wpfPlotRamBarChart;
+
+            // Tab 2 - ScottPlot Bar Chart - Hard disk frequency
+            var wpfPlotHardDiskBarChart = new WpfPlot();
+
+            // Count the frequency of each RAM value
+            var hardDiskFrequency = hardDiskData.GroupBy(x => x)
+                .Select(g => new { HardDisk = g.Key, Frequency = g.Count() })
+                .OrderBy(x => x.HardDisk)
+                .ToList();
+
+            // Create a bar plot
+            foreach (var value in hardDiskFrequency)
+            {
+                wpfPlotHardDiskBarChart.Plot.AddBar(value.HardDisk, value.Frequency);
+            }
+
+            // Customize plot labels and title
+            wpfPlotHardDiskBarChart.Plot.Title("Hard Disk Frequency");
+            wpfPlotHardDiskBarChart.Plot.XLabel("Hard Disk(GB)");
+            wpfPlotHardDiskBarChart.Plot.YLabel("Frequency");
+
+            // Render the plot
+            wpfPlotHardDiskBarChart.Render();
+
+            // Set the WpfPlot control as the content of the third tab
+            tabItemTab2.Content = wpfPlotHardDiskBarChart;
+
+            // Tab 3 - ScottPlot Bar Chart - Screen size frequency
+            var wpfPlotScreenSizeBarChart = new WpfPlot();
+
+            // Count the frequency of each RAM value
+            var screenSizeFrequency = screenSizeData.GroupBy(x => x)
+                .Select(g => new { ScreenSize = g.Key, Frequency = g.Count() })
+                .OrderBy(x => x.ScreenSize)
+                .ToList();
+
+            // Create a bar plot
+            foreach (var value in screenSizeFrequency)
+            {
+                wpfPlotScreenSizeBarChart.Plot.AddBar(value.ScreenSize, value.Frequency);
+            }
+
+            // Customize plot labels and title
+            wpfPlotScreenSizeBarChart.Plot.Title("Screen Size Frequency");
+            wpfPlotScreenSizeBarChart.Plot.XLabel("Screen Size(Inches)");
+            wpfPlotScreenSizeBarChart.Plot.YLabel("Frequency");
+
+            // Render the plot
+            wpfPlotScreenSizeBarChart.Render();
+
+            // Set the WpfPlot control as the content of the third tab
+            tabItemTab3.Content = wpfPlotScreenSizeBarChart;
+
+            // Tab 4 - ScottPlot Bar Chart - Price frequency
+            var wpfPlotPriceBarChart = new WpfPlot();
+
+            // Count the frequency of each RAM value
+            var priceFrequency = priceData.GroupBy(x => x)
+                .Select(g => new { Price = g.Key, Frequency = g.Count() })
+                .OrderBy(x => x.Price)
+                .ToList();
+
+            // Create a bar plot
+            foreach (var value in priceFrequency)
+            {
+                wpfPlotPriceBarChart.Plot.AddBar(value.Price, value.Frequency);
+            }
+
+            // Customize plot labels and title
+            wpfPlotPriceBarChart.Plot.Title("Price Frequency");
+            wpfPlotPriceBarChart.Plot.XLabel("Price(USD)");
+            wpfPlotPriceBarChart.Plot.YLabel("Frequency");
+
+            // Render the plot
+            wpfPlotPriceBarChart.Render();
+
+            // Set the WpfPlot control as the content of the third tab
+            tabItemTab4.Content = wpfPlotPriceBarChart;
+
+            // Create a pie plot for the distribution of laptops based on RAM - TAB 5
             var wpfPlotRAMDistribution = new WpfPlot();
 
             // Define RAM ranges
@@ -78,9 +183,9 @@ namespace Data_Visualization
             wpfPlotRAMDistribution.Render();
 
             // Set the WpfPlot control as the content of the first tab
-            tabItemTab1.Content = wpfPlotRAMDistribution;
+            tabItemTab5.Content = wpfPlotRAMDistribution;
 
-            // Create a scatter plot for screen size vs. price - TAB 2
+            // Create a scatter plot for screen size vs. price - TAB 6
             LaptopData = new ChartValues<ObservablePoint>();
 
             // Populate the ScatterSeries with screen size and price data

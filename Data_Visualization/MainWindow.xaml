@@ -9,8 +9,36 @@
         Title="Data Visualization" Height="450" Width="800">
     <Grid>
         <TabControl>
-            <!-- Tab 1 - Static Pie using ScottPlot -->
-            <TabItem Header="Ram Pie" x:Name="tabItemTab1">
+            <!-- Tab 1 - ScottPlot Bar Chart - Ram -->
+            <TabItem Header="Ram Frequency" x:Name="tabItemTab1">
+                <Grid>
+                    <wpf:WpfPlot Name="wpfPlotTab1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </TabItem>
+            
+            <!-- Tab 2 - ScottPlot Bar Chart - Hard disk -->
+            <TabItem Header="Hard Disk Frequency" x:Name="tabItemTab2">
+                <Grid>
+                    <wpf:WpfPlot Name="wpfPlotTab2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab 3 - ScottPlot Bar Chart - Screen size -->
+            <TabItem Header="Screen size Frequency" x:Name="tabItemTab3">
+                <Grid>
+                    <wpf:WpfPlot Name="wpfPlotTab3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab 4 - ScottPlot Bar Chart - Price -->
+            <TabItem Header="Price Frequency" x:Name="tabItemTab4">
+                <Grid>
+                    <wpf:WpfPlot Name="wpfPlotTab4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </TabItem>
+            
+            <!-- Tab 5 - Static Pie using ScottPlot -->
+            <TabItem Header="Ram Distribution Pie" x:Name="tabItemTab5">
                 <Grid>
                     <wpf:Grid.ColumnDefinitions>
                         <wpf:ColumnDefinition Width="112*"/>
@@ -18,14 +46,14 @@
                         <wpf:ColumnDefinition Width="0*"/>
                         <wpf:ColumnDefinition Width="665*"/>
                     </wpf:Grid.ColumnDefinitions>
-                    <wpf:WpfPlot Name="wpfPlotTab1" wpf:Grid.ColumnSpan="4"/>
+                    <wpf:WpfPlot Name="wpfPlotTab5" wpf:Grid.ColumnSpan="4"/>
                 </Grid>
             </TabItem>
 
-            <!-- Tab 2 - LiveCharts Screen Size vs. Price -->
-            <TabItem Header="Screen Size vs. Price - Scatter chart" x:Name="tabItemTab2">
+            <!-- Tab 6 - LiveCharts Screen Size vs. Price -->
+            <TabItem Header="Screen Size vs. Price - Scatter chart" x:Name="tabItemTab6">
                 <Grid>
-                    <lvc:CartesianChart Name="liveChartTab2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <lvc:CartesianChart Name="liveChartTab6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <lvc:CartesianChart.Series>
                             <lvc:ScatterSeries Title="Laptop(Inches, USD)" Values="{Binding LaptopData}" PointGeometry="{x:Static lvc:DefaultGeometries.Circle}"  MaxPointShapeDiameter="10"/>
                         </lvc:CartesianChart.Series>
