@@ -66,9 +66,23 @@ After addressing outliers, the script proceeds with a comprehensive analysis of 
 
 In this phase we display some data visualization starting from general bar charts for numerical column showing their frequency, static visualization by displaying Ram distribution via Pie chart and an interactive visualization by displaying laptops based on their Screen size value and their Price.
 
-## Bar chart for Ram column
+## Bar chart for Ram frequency
 ![RamFreq](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/7e2f1cb4-8964-4cd6-a21e-9b1471b902b3)
 
+## Bar chart for Hard disk frequency
+![hardDiskFreq](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/26a302d6-f83f-4b55-88cc-bf61b59f6fec)
+
+## Bar chart for Screen size frequency
+![screenFreq](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/b973b2fe-aa63-434a-9627-67f2ddd7023d)
+
+## Bar chart for Price frequency
+![priceFreq](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/a89a138f-6fb5-44d4-9b9d-dd2e6c65de0e)
+
+## Static visualization - Pie chart for Ram distribution
+![ramPie](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/086e5eda-85d0-4e6e-b1e7-8422dd536117)
+
+## Interactive visualization - Scatter chart for Laptops based on their screen size and price distribution
+![screenVsPriceChart](https://github.com/Albiongit/AmazonLaptops-October2023_Data_Preprocessing_Visualization/assets/62037447/6244058b-b6df-4df4-9b99-098ebe549eb6)
 
 
 # Conclusion
